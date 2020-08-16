@@ -18,11 +18,13 @@ GOOGLE_CHROME_PATH = os.environ.get('GOOGLE_CHROME_SHIM')
 CHROMEDRIVER_PATH = os.environ.get('CHROMEDRIVER_PATH')
 
 chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--headless')
 chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument("--window-size=1920,1080")
 chrome_options.binary_location = GOOGLE_CHROME_PATH
 
-WAIT_TIMEOUT = 60
+WAIT_TIMEOUT = os.environ.get('WAIT_TIMEOUT')
 
 book_test_xpath = "//a[@title='Book a Road Test']"
 continue_btn_xpath = "//button[.//span[text()='Continue']]"
