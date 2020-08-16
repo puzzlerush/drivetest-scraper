@@ -38,7 +38,7 @@ retry_xpath = "//a[@title='retry']"
 
 class DriveTestBot():
     def __init__(self):
-        self.driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
+        self.wd = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
 
     def log_in(self, email, licence, expiry):
         self.wd.get("https://drivetest.ca/book-a-road-test/booking.html")
