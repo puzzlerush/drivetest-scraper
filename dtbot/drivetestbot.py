@@ -14,6 +14,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+GOOGLE_CHROME_PATH = os.environ.get('GOOGLE_CHROME_SHIM')
+CHROMEDRIVER_PATH = os.environ.get('CHROMEDRIVER_PATH')
+
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--disable-gpu')
+chrome_options.add_argument('--no-sandbox')
+chrome_options.binary_location = GOOGLE_CHROME_PATH
+
 WAIT_TIMEOUT = 60
 
 book_test_xpath = "//a[@title='Book a Road Test']"
@@ -30,7 +38,7 @@ retry_xpath = "//a[@title='retry']"
 
 class DriveTestBot():
     def __init__(self):
-        self.wd = webdriver.Chrome("chromedriver.exe")
+        self.driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=chrome_options)
 
     def log_in(self, email, licence, expiry):
         self.wd.get("https://drivetest.ca/book-a-road-test/booking.html")
@@ -145,11 +153,3 @@ def job():
     bot.pretty_print(available_dates_all)
     bot.notify(available_dates_all, DT_EMAIL, DT_EMAIL, DT_EMAIL_PWD)
     bot.stop()
-
-from apscheduler.schedulers.blocking import BlockingScheduler
-
-if __name__ == "__main__":
-    scheduler = BlockingScheduler()
-    scheduler.add_job(job, 'interval', minutes=30)
-    scheduler.start()
-    job()

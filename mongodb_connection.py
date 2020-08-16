@@ -56,14 +56,9 @@ def job():
     all_openings = get_available_dates()
     insert_data(all_openings)
 
-from apscheduler.schedulers.blocking import BlockingScheduler
-
 SCRAPE_INTERVAL = int(os.environ.get('SCRAPE_INTERVAL'))
 
 if __name__ == "__main__":
-    scheduler = BlockingScheduler()
-    scheduler.add_job(job, 'interval', minutes=SCRAPE_INTERVAL)
-    scheduler.start()
     job()
 
     
