@@ -1,4 +1,3 @@
 dnspython
 pymongo
-pyvirtualdisplay
 selenium
